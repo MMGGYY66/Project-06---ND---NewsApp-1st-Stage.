@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dim16"
+    tools:context="com.example.android.newsappver1.MainActivity">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newsTitle"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text20"
+        android:textStyle="bold"
+        android:paddingTop="@dimen/dim8"
+        android:text="@string/news_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newsCategory"
+        android:layout_below="@+id/newsTitle"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text16"
+        android:paddingTop="@dimen/dim8"
+        android:text="@string/news_category"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newsAuthor"
+        android:layout_below="@+id/newsCategory"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text12"
+        android:layout_alignParentStart="true"
+        android:paddingTop="@dimen/dim8"
+        android:text="@string/author"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newsDate"
+        android:layout_below="@+id/newsCategory"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text12"
+        android:layout_alignParentEnd="true"
+        android:paddingTop="@dimen/dim8"
+        android:text="@string/date"/>
+
+
+</RelativeLayout>
+

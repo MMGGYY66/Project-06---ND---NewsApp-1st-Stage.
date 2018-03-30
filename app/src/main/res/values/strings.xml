@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">News app, Stage 1 </string>
+    <string name="news_title">News Title</string>
+    <string name="news_category">News Category</string>
+    <string name="author">author</string>
+    <string name="date">date</string>
+    <string name="sorry_there_are_no_news_to_display">Sorry, there are no news to display.</string>
+    <string name="no_connection">There is no internet connection.</string>
+
+</resources>
