@@ -4,6 +4,8 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //adapter for News
     private NewsAdapter newsAdapter;
+
+    //warning message
+    private String messageForUser;
 
     // Empty text view
     private TextView mEmptyStateTextView;
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //set adapter on ListView
         newsListView.setAdapter(newsAdapter);
 
+
         //set item onItemClick listener on ListView and open web page of news
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,8 +74,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // create new intent
                 Intent webNewsIntent = new Intent(Intent.ACTION_VIEW, newsURI);
 
-                // start created intent
-                startActivity(webNewsIntent);
+                // check if any browser is available, if not display toast message
+                PackageManager packageManager = getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(webNewsIntent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+
+                boolean isIntentSafe = activities.size() > 0;
+
+                if (isIntentSafe) {
+
+                    // start created intent
+                    startActivity(webNewsIntent);
+
+                } else {
+                    String message = getString(R.string.no_browser);
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -97,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
-            mEmptyStateTextView.setText(R.string.no_connection);
+            messageForUser = (String) getText(R.string.no_connection);
+            warningMessage(messageForUser);
         }
     }
 
@@ -123,8 +146,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             newsAdapter.addAll(news);
 
             if (news.isEmpty()) {
-                // Set empty state text view to display "Sorry, there are no data to display."
-                mEmptyStateTextView.setText(getText(R.string.sorry_there_are_no_news_to_display));
+                // Set empty state text view to display
+                messageForUser = (String) getText(R.string.sorry_there_are_no_news_to_display);
+
+                warningMessage(messageForUser);
             }
         }
     }
@@ -134,4 +159,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 // Loader reset, so we can clear out our existing data.
         newsAdapter.clear();
     }
+
+
+    /**
+     * hides the loading indicator and displays a message with explanation
+     */
+    private void warningMessage(String messageForUser) {
+        // Hide progress indicator
+
+        View loadingIndicator = findViewById(R.id.loading_info);
+        loadingIndicator.setVisibility(View.GONE);
+        // set text
+        mEmptyStateTextView.setVisibility(View.VISIBLE);
+        mEmptyStateTextView.setText(messageForUser);
+    }
+
 }

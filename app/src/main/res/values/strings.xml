@@ -4,7 +4,8 @@
     <string name="news_category">News Category</string>
     <string name="author">author</string>
     <string name="date">date</string>
-    <string name="sorry_there_are_no_news_to_display">Sorry, there are no news to display.</string>
-    <string name="no_connection">There is no internet connection.</string>
+    <string name="sorry_there_are_no_news_to_display">Sorry, unexpected problem with downloading data from Guardian\'s server. Close the app and try it later.</string>
+    <string name="no_connection">There is no internet connection. Please turn on your wifi or mobile data and restart the app.</string>
+    <string name="no_browser">In your cell phone there is no internet browser. If you want to read news, please download and install some.</string>
 
 </resources>
